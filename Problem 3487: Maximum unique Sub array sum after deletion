@@ -1,0 +1,13 @@
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        max_val=max(nums)
+        if max_val<=0:
+            return max_val
+        set1=set()
+        n=len(nums)
+        unique_positive_sum=0
+        for num in nums:
+            if num>0 and num not in set1:
+                set1.add(num)
+                unique_positive_sum+=num
+        return unique_positive_sum
