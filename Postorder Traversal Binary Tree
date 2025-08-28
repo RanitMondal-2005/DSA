@@ -1,0 +1,53 @@
+# Post order = left->right->parent
+# METHOD 1- STACK BASED
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if root is None:
+            return []
+        ans=[] # from stack 2 put to ans, left->right->root
+        stack1=[root] # traverse
+        stack2=[] # put like -> root->right->left
+        while len(stack1)>0:
+            node=stack1.pop()
+            stack2.append(node) # root
+            # 1st left, then right 
+            if node.left is not None:
+                stack1.append(node.left)
+            if node.right is not None:
+                stack1.append(node.right)
+        while len(stack2)>0:
+            ans.append(stack2.pop().val)
+        return ans
+
+# METHOD 2- RECURSION BASED
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if root is None:
+            return []
+        ans=[] # from stack 2 put to ans, left->right->root
+        stack1=[root] # traverse
+        stack2=[] # put like -> root->right->left
+        while len(stack1)>0:
+            node=stack1.pop()
+            stack2.append(node) # root
+            # 1st left, then right 
+            if node.left is not None:
+                stack1.append(node.left)
+            if node.right is not None:
+                stack1.append(node.right)
+        while len(stack2)>0:
+            ans.append(stack2.pop().val)
+        return ans
+                
