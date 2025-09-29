@@ -1,0 +1,80 @@
+# DEPTH FIRST SEARCH 
+
+# METHOD 1 : Solution using a stack(iterative way)
+
+# 1st we need a stack
+class Stack:
+    def __init__(self):
+        self.l=[]
+    def push(self,data):
+        self.l.append(data)
+    def pop(self):
+        if len(self.l)==0:
+            return -1
+        return self.l.pop()
+    def length(self):
+        return len(self.l)
+
+st=Stack()
+# ten we also need an adjacency list/matrix
+# lets use adjcency list here
+n=6 # no of nodes
+e=6 # no of edges
+edges=[(0,1),(0,3),(0,4),(1,2),(1,5),(2,4),(3,4)] # let it be an undirected graph
+# our nodes : 0,1,2,3,4,5
+adj_list=[]
+for i in range(n):
+    adj_list.append([])
+for edge in edges:
+    u=edge[0]
+    v=edge[1]
+    adj_list[u].append(v)
+    adj_list[v].append(u)
+print("Adjacency list: ")
+for i in range(n):
+    print(i,"->",adj_list[i])
+
+visited=[False]*n
+ans=[] # to store DFS traversal
+st.push(0) # let starting node be 0
+
+visited[0]=True
+while st.length()>0:
+    top=st.pop()
+    ans.append(top)
+    for i in adj_list[top]:
+        if not visited[i]:
+            visited[i]=True
+            st.push(i)
+print("DFS Traversal ->", ans)
+
+
+# METHOD 2 : Solution Using Recursive approach ( Most used )
+
+# no stack need , rather a recursive function is needed here, along with visited array and adj list
+n=6 # no of nodes
+e=6 # no of edges
+edges=[(0,1),(0,3),(0,4),(1,2),(1,5),(2,4),(3,4)] # let it be an undirected graph
+# our nodes : 0,1,2,3,4,5
+adj_list=[]
+for i in range(n):
+    adj_list.append([])
+for edge in edges:
+    u=edge[0]
+    v=edge[1]
+    adj_list[u].append(v)
+    adj_list[v].append(u)
+
+ans=[]
+visited=[False]*n
+
+def DFS(i,adj_list,visited): # i-> current node,
+    ans.append(i)
+    visited[i]=True
+    for x in adj_list[i]:
+        if not visited[x]:
+            DFS(x,adj_list,visited)
+
+# let 0 be the starting node of the Traversal
+DFS(0,adj_list,visited)
+print("DFS = ",ans)
