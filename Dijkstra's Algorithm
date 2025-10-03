@@ -1,0 +1,39 @@
+# Dijkstra Algorithm( single source shortest path algorithm)
+import heapq
+# adj list
+n=7
+e=8
+edges=[(0,1,4),(0,2,4),(1,2,2),(2,3,3),(2,4,1),(2,5,6),(3,5,2),(4,5,3)]
+adj_list=[]
+for i in range(n):
+    adj_list.append([])
+
+for edge in edges:
+    u=edge[0]
+    v=edge[1]
+    w=edge[2]
+    adj_list[u].append((v,w))
+    adj_list[v].append((u,w))
+for i in range(n):
+    print(i,"->",adj_list[i])
+
+# consider source node as 0
+s=0
+# dijkstra algorithm( greedy approach)
+dist=[float('inf')]*n
+heap=[]
+dist[s]=0
+heapq.heappush(heap,[dist[s],s])
+while len(heap)>0:
+    d,u=heapq.heappop(heap)
+    for v,w in adj_list[u]:
+        if dist[u]+w < dist[v]:
+            dist[v]=dist[u]+w
+            heapq.heappush(heap,[dist[v],v])
+
+print(dist)
+
+
+
+        
+        
