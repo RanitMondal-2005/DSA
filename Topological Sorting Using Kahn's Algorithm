@@ -1,0 +1,48 @@
+class Queue:
+    def __init__(self):
+        self.l=[]
+    def enqueue(self,data):
+        self.l.append(data)
+    def dequeue(self):
+        if len(self.l)==0:
+            return -1
+        return self.l.pop(0)
+    def length(self):
+        return len(self.l)
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # numCourses->n ( no of nodes) ,prerequisites -> edges(a,b) but edge  in form b->a
+        # solution using Topological sorting(by Kahn's Algo)
+        # step 1: initialize
+        indegree=[0]*numCourses
+        adj_list=[[] for _ in range(numCourses)]
+        q=Queue()
+        ans=[] # to store topological ordering
+        visited=[False]*numCourses
+        # step 2: iterate through all edges, and calculate indegree 
+        for a,b in prerequisites:
+            indegree[a]+=1
+            adj_list[b].append(a) # undirected graph
+        # step 3: st with node that has indegree 0,put it to Queue and ans 
+        for i in range(len(indegree)):
+            if indegree[i]==0:
+                q.enqueue(i)
+                ans.append(i)
+        # step 4: continue loop until queue is empty
+        while q.length()>0:
+            front=q.dequeue()
+            # now that node is removed , so its all dependencies must be reduced by 1
+            for x in adj_list[front]:
+                indegree[x]-=1
+                # also check if any node's indegree became 0, if yes put it back to Q and ans
+                if indegree[x]==0:
+                    q.enqueue(x)
+                    ans.append(x)
+
+        # step 5: if cycle exists then all nodes will not be visited in ans , cause indegree of some nodes can't be 0 , that means all tasks can't be completed if any cycle exits in this graph
+        return len(ans)==numCourses
+
+        # to see the topological ordering just return the ans ( ans array is storing the topological odrdering )
+
+
+# Another Method is also there to do topological sorting : that is using DFS , but with a few modifications ( But Kahn's algorithm to solve topological sort is the most optimized approach)
