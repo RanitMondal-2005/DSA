@@ -1,0 +1,95 @@
+#Adjacency List
+
+class Graph:
+    def __init__(self,directed=False):
+        self.adj_list={} # empty dictionary, key-> curr node , value-> its neighbors(adj nodes)
+        self.directed=directed # for directed graph
+    def add_node(self,node):
+        if node not in self.adj_list:
+            self.adj_list[node]=[]
+        
+    def add_edge(self,u,v):
+        # every edge has a start and a end ( U->start and v->end)
+        # 1st check u and v are valid node in graph or not
+        self.add_node(u)
+        self.add_node(v)
+        # 2nd connect u->v 
+        self.adj_list[u].append(v)
+        # if undirected graph then also connect v->u
+        if self.directed==False:
+            self.adj_list[v].append(u) 
+
+    def display(self):
+        for vertex in self.adj_list:
+         print(vertex,"->",self.adj_list[vertex])
+
+print("Undirected Graph:")
+g1 = Graph(directed=False)   # undirected graph
+# Adding edges (each has a start and an end)
+g1.add_edge(0, 1)
+g1.add_edge(0, 3)
+g1.add_edge(0, 4)
+g1.add_edge(1, 2)
+g1.add_edge(1, 5)
+g1.add_edge(2, 4)
+g1.add_edge(3, 4)
+g1.display()
+
+print("\nDirected Graph:")
+g2 = Graph(directed=True)    # directed graph
+# Adding directed edges (u -> v)
+g2.add_edge("A", "B")
+g2.add_edge("A", "C")
+g2.add_edge("B", "D")
+g2.add_edge("C", "D")
+g2.display()
+
+
+
+
+
+
+# Adjacency matrix
+
+class Graph:
+    def __init__(self,directed=False):
+        self.adj_matrix=[]
+        self.nodes={} # to keep track of node index( row/col)
+        self.directed=directed
+    def add_node(self,node):
+        if  node not in self.nodes:
+            self.nodes[node]=len(self.nodes)
+            
+            size=len(self.nodes)
+            for row in self.adj_matrix:
+                row.append(0)
+            self.adj_matrix.append([0]*size)
+    def add_edge(self,u,v):
+        self.add_node(u)
+        self.add_node(v)
+        # bring index 
+        i,j=self.nodes[u],self.nodes[v]
+        # then put 1 if edge exist( u->v)
+        self.adj_matrix[i][j]=1
+        if not self.directed:
+            # that means its undirected , so also add v->u
+            self.adj_matrix[j][i]=1
+    def display(self):
+        # list of node names in the order of their indices
+        node_list = list(self.nodes.keys())
+        
+        print("Adjacency Matrix:")
+        
+        # print header row (node names on top)
+        print("   ", "  ".join(node_list))
+        
+        # print each row with node label in front
+        for i, row in enumerate(self.adj_matrix):
+            print(node_list[i], row)
+
+
+g = Graph(directed=False)      # Create an undirected graph
+g.add_edge("A", "B")           # Add edge A-B
+g.add_edge("A", "C")           # Add edge A-C
+g.add_edge("B", "C")           # Add edge B-C
+g.display()

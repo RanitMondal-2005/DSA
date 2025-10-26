@@ -1,0 +1,64 @@
+# Bellman Ford Algorithm( single source shortest path algorithm)
+# adj list
+n=7
+e=8
+edges = [
+    (0, 1, -1),
+    (0, 2, 4),
+    (1, 2, 3),
+    (1, 3, 2),
+    (1, 4, 2),
+    (3, 2, 5),
+    (3, 1, 1),
+    (4, 3, -3)
+]
+adj_list=[]
+for i in range(n):
+    adj_list.append([])
+for edge in edges:
+    u=edge[0]
+    v=edge[1]
+    w=edge[2]
+    adj_list[u].append((v,w))
+    adj_list[v].append((u,w))
+for i in range(n):
+    print(i,"->",adj_list[i])
+    
+s=0 # let source node be 0
+
+# step 1 : initialization 
+
+dist=[float('inf')]*n
+dist[s]=0
+
+# step 2: keep on relaxing v-1 times , 
+# because any graph more than v-1 edges will have cycles and
+# cycles dont contribute to shortest path ,unless they are negative
+
+for i in range(n-1): 
+    for u,v,w in edges:
+        if dist[u]+w< dist[v]:
+            dist[v]=dist[u]+w
+
+# step 3:check for negative cycles
+# if after v-1 relaxation also any edge shows improvement then negative cycles detected
+
+for u, v, w in edges:
+    if  dist[u] + w < dist[v]:
+        print("Graph contains a negative weight cycle!")
+        break
+print(dist)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

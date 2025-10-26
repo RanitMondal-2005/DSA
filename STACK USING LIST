@@ -1,0 +1,66 @@
+# METHOD 1 = ARRAY IMPLEMENTATION OF STACK
+class Stack:
+    def __init__(self):
+        self.l=[]
+        self.menu()
+    def menu(self):
+        print('''
+              Press 1 to push
+              press 2 to pop
+              press 3 to display stack
+              press 4 to exit
+              press 5 to display top element of stack
+              press 6 to see the length of the stack''')
+        x=int(input("enter your choice:"))
+        match x:
+            case 1:self.push()
+            case 2: self.pop()
+            case 3:self.display()
+            case 4:
+                   print("TATA BYE")
+                   exit()
+            case 5: self.top()
+            case 6:self.length()
+            case _: print(" Wrong choice!!!")
+    
+    def isEmpty(self):
+        empty=False
+        if len(self.l)==0:
+            empty=True
+        return empty
+    def isFull(self): # in python , no need to set the length of the stack( give a fixed size) as its automatically dynamically typed
+        pass
+    def push(self):
+        data=int(input("enter data to insert:"))
+        self.l.append(data)
+        print("data successfully added to the stack")
+        self.menu()
+    def pop(self):
+        if self.isEmpty()==True:
+             print("LIST EMPTY, insert some values")
+             self.menu()
+        self.l.pop()
+        print("data successfully deleted")
+        self.menu()
+    def top(self):
+        if self.isEmpty():
+            print("No Top exist , list empty")
+        else:
+         print("TOP element =",self.l[-1])
+        self.menu()
+    def display(self):
+        if self.isEmpty():
+            print(" list is empty")
+        else:
+         print("PRINTING ALL STACK ELEMENTS")
+         print(self.l)
+        self.menu()
+    def length(self):
+        if self.isEmpty():
+            print(" list is empty")
+        else:
+         x=len(self.l)
+         print(x)
+        self.menu()
+st1=Stack()
+print(st1)

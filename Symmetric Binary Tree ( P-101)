@@ -1,0 +1,26 @@
+# RECURSIVE SOLUTION
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isMirror(self,t1,t2):# t1->left node, t2->right node
+        # base case 1
+        if t1==None and t2==None: # mirror
+           return True
+        # base case 2
+        if t1==None or t2==None:
+            return False
+        # check recursively
+        if t1.val!=t2.val:
+            return False
+        left_mirror=self.isMirror(t1.left,t2.right)
+        right_mirror=self.isMirror(t1.right,t2.left)
+        return left_mirror and right_mirror 
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        # recursive solution( classic one)
+        if root is None:
+            return True
+        return self.isMirror(root.left,root.right)

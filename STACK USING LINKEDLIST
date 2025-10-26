@@ -1,0 +1,82 @@
+# METHOD 2- Stack implementation using Linked List
+
+''' To avoid o(n) complexity we use :-
+ 1-> INSERT AT START
+ 2 -> DELETE FROM START
+ this will give o(1) complexity for push and pop operations'''
+
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None 
+class Stack:
+    c=0 # for calculating length of linked list, c is static variable accessed by class name
+    def __init__(self):
+        self.head = None  # top of stack, # TOP is actually head of LL
+        self.menu() 
+    def menu(self):
+        print('''
+              Press 1 to push
+              press 2 to pop
+              press 3 to display stack
+              press 4 to exit
+              press 5 to display top element of stack
+              press 6 to see the length of the stack''')
+        x=int(input("enter your choice:"))
+        match x:
+            case 1:self.push()
+            case 2: self.pop()
+            case 3:self.display()
+            case 4:
+                   print("TATA BYE")
+                   exit()
+            case 5: self.top()
+            case 6:self.length()
+            case _: 
+                print(" Wrong choice!!!")
+                self.menu()
+    def push(self): # insert at begaining
+        data=int(input("Enter data = "))
+        newnode=Node(data)
+        newnode.next=self.head
+        self.head=newnode
+        print("data inserted")
+        Stack.c+=1
+        self.menu()
+    def isEmpty(self):
+        empty=False
+        if Stack.c==0:
+            empty=True
+        return empty
+    def pop(self): # delete from start
+        if self.isEmpty():
+            print("Stack empty")
+        else:
+            if Stack.c==1:
+                self.head=None
+                print("Data deleted")
+            else:
+             self.head=self.head.next
+             print("Data deleted")
+            Stack.c-=1
+        self.menu()
+    def top(self):
+        if self.isEmpty():
+            print("Stack empty")
+        else:
+            print("top is at ",self.head.data)
+        self.menu()
+    def display(self):
+        if self.isEmpty():
+            print("Stack empty")
+        else:
+         current=self.head # use a temp to move as head will not be lost then
+         while current!=None:
+             print(current.data) 
+             current=current.next
+        self.menu()
+    def length(self):
+        print("length of stack=",Stack.c)
+        self.menu()
+st1=Stack()
+print(st1)

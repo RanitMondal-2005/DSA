@@ -90,8 +90,13 @@ class BST:
             # case 2-> deleting a node which has only 1 child , simply delete that node and link the rest tree with its only child
             elif root.left is None: # child at right
                 return root.right # link tree with right
+<<<<<<< HEAD
             elif root.right is None: # child at left
                 return root.left # link tree with left
+=======
+            elif root.left is None: # child at left
+                return root.right # link tree with left
+>>>>>>> 6ea737cbe92e9e8a82c05f8150ed19ac80f14985
             #case 3-> deleting node has both childs present
             else: 
                 # then find in-order successor of the node, replace with that and delete that

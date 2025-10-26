@@ -1,0 +1,105 @@
+# METHOD 1- SIMPLE QUEUE USING LIST
+
+class SimpleQueue:
+    def __init__(self):
+        self.l=[]
+        self.front=-1 # initially
+        self.menu()
+
+
+    def menu(self):
+        print('''
+              :::TO USE SIMPLE QUEUE CHOOSE:::
+              Press 1 to Enqueue
+              press 2 to Dequeue
+              press 3 to Display all elements of Queue
+              press 4 to Exit
+              press 5 to Display Front of Queue
+              press 6 to see the length of the Queue
+              press 7 to Display Rear of Queue
+              ''')
+        x=int(input("enter your choice:"))
+        match x:
+            case 1:self.enqueue()
+            case 2: self.dequeue()
+            case 3:self.display()
+            case 4:
+                   print("TATA BYE")
+                   exit()
+            case 5: self.get_front()
+            case 6:self.length()
+            case 7:self.get_rear()
+            case _: 
+                print(" Wrong choice!!! TRY AGAIN ....")
+                self.menu()
+    def isEmpty(self):
+        empty=False
+        if self.front==-1:
+            empty=True
+        return empty
+    
+
+    def isFull(self): # in python , no need to set the length of the queue( give a fixed size) as its automatically dynamically typed
+        pass
+
+
+    def enqueue(self):
+        data=int(input("enter data to insert:"))
+        if self.isEmpty():
+         self.front=0 # 1st element inserted
+        self.l.append(data)
+        print("Data successfully added")
+        self.menu()
+
+
+    def dequeue(self):
+        if self.isEmpty()==True:
+             print("Queue empty")
+             self.menu()
+        print("Deleted element=",self.l[self.front])
+        self.l.pop(0) # since pop works on specific index, 1st element from front deleted
+        
+        if len(self.l) == 0: # Queue had only 1 element, so after deleting that element ,front should be at -1 as Q will be empty
+            self.front = -1  # reset when empty
+        else: # Queue had more than 1 element
+            self.front = 0   # so new front is now at index 0
+        print("data successfully deleted")
+        self.menu()
+
+
+    def get_front(self):
+        if self.isEmpty():
+            print("No Front exist , Queue empty")
+        else:
+         print("FRONT->",self.l[self.front])
+        self.menu()
+
+
+    def get_rear(self):
+        if self.isEmpty():
+            print("Queue empty")          
+        else:
+            print("REAR->",self.l[-1]) # since last element is rear
+        self.menu()
+
+
+    def display(self):
+        if self.isEmpty():
+            print("Queue empty")
+        else:
+         print("PRINTING ALL ELEMENTS of SIMPLE QUEUE")
+         print(self.l)
+        self.menu()
+
+
+    def length(self):
+        if self.isEmpty():
+            print(" Queue is empty")
+        else:
+         x=len(self.l)
+         print(x)
+        self.menu()
+
+
+queue1=SimpleQueue()
+print(queue1)

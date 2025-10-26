@@ -1,0 +1,24 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeTwoLists(self, head1: Optional[ListNode], head2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy=ListNode(0)
+        current3=dummy
+        while head1!=None and head2!=None:
+            if head1.val<=head2.val:
+                current3.next=head1
+                head1=head1.next
+                current3=current3.next
+            else:
+                current3.next=head2
+                head2=head2.next
+                current3=current3.next
+        # add remaining elements as it is as both LL are already sorted(no comparison needed)
+        if head1 is None: # mostly we use is operator when dealing ith LL objects
+           current3.next=head2
+        else:
+            current3.next=head1
+        return dummy.next

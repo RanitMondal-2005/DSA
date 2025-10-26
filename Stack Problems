@@ -1,0 +1,66 @@
+# STACK 
+# Problem 20 - Valid Parenthesis
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack=[]
+        n=len(s)
+        if n%2==1:#odd
+           return False
+        for i in range(n):
+            
+            if s[i]=='(' or s[i]=='{' or s[i]=='[':
+                stack.append(s[i])
+            
+            else:
+                if len(stack)==0:#started with closing brack
+                 return False
+                if s[i]==')' and stack[-1]!='(':
+                    return False
+                elif s[i]=='}' and stack[-1]!='{':
+                    return False
+                elif s[i]==']' and stack[-1]!='[':
+                    return False
+                stack.pop()
+        if len(stack)==0:
+            return True
+        else:
+            return False
+
+
+# Problem 496: Next Greater Element I
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        # initially nums 2 er greater element gulo ber korbo
+        n=len(nums2)
+        ans_dict={}
+        stack=[]
+        for i in range(n-1,-1,-1):
+            while len(stack)>0 and nums2[i]>stack[-1]:
+                stack.pop()
+            if len(stack)==0:
+                ans_dict[nums2[i]]=-1
+            else:
+                ans_dict[nums2[i]]=stack[-1]
+            stack.append(nums2[i])
+# nums 1 er respect aa greater element ans aa likhbo
+        result=[]
+        for i in nums1: 
+            result.append(ans_dict[i])
+        return result
+
+
+
+# Problem 901: Online stock span ( leetcode version )
+
+class StockSpanner:
+    def __init__(self):
+        self.stack=[]
+    def next(self, price: int) -> int:
+        spans=1
+        while len(self.stack)>0 and price>=self.stack[-1][0]:
+            spans+=self.stack.pop()[1]
+        self.stack.append((price,spans))
+        return spans
+# Your StockSpanner object will be instantiated and called as such:
+# obj = StockSpanner()
+# param_1 = obj.next(price)

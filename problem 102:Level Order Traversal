@@ -1,0 +1,54 @@
+# Level order traversal in Binary Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Queue:
+    def __init__(self):
+        self.l=[]     
+    def enqueue(self,num): # PUSH
+        self.l.append(num)
+    def dequeue(self): # DELETE
+        if len(self.l)==0:
+            return -1 # no element
+        return self.l.pop(0)
+    def get_front(self):
+        if len(self.l)==0:
+            return -1 # no element
+        return self.l[0]
+    def get_rear(self):
+        if len(self.l)==0:
+            return -1 # no element
+        return self.l[-1]
+    def length(self):
+        x=len(self.l)
+        return x
+    def display(self):
+        if len(self.l)==0:
+            return-1
+        print(self.l)
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if root is None:
+            return []
+        ans=[]
+        queue=Queue() # queue is the object of original Queue
+        # initially root is ans ( 1st lvl can only have root)
+        queue.enqueue(root) # root as node , not its value
+        ans.append([root.val])
+        while queue.length()>0:
+            level=[]
+            l=queue.length() # length of queue
+            for i in range(l):
+             front=queue.dequeue()
+             if front.left is not None:
+                 queue.enqueue(front.left)
+                 level.append(front.left.val)
+             if front.right is not None:
+                 queue.enqueue(front.right)
+                 level.append(front.right.val)
+            if len(level)>0:
+                ans.append(level)
+        return ans

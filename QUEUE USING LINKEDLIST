@@ -1,0 +1,119 @@
+# METHOD 2- QUEUE USING LL
+
+'''
+
+1-> INSERT AT LAST (REAR)
+
+2-> DELETE FROM FIRST (FRONT)
+
+'''
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None 
+class SimpleQueue:
+    c=0 # for calculating length of linked list, c is static variable accessed by class name
+    def __init__(self):
+        self.front=None # head = FRONT
+        self.rear=None # last element= REAR
+        self.menu()
+
+    def menu(self):
+        print('''
+              :::TO USE QUEUE CHOOSE:::
+              Press 1 to Enqueue
+              press 2 to Dequeue
+              press 3 to Display all elements of Queue
+              press 4 to Exit
+              press 5 to Display Front of Queue
+              press 6 to see the length of the Queue
+              press 7 to Display Rear of Queue
+              ''')
+        x=int(input("enter your choice:"))
+        match x:
+            case 1:self.enqueue()
+            case 2: self.dequeue()
+            case 3:self.display()
+            case 4:
+                   print("TATA BYE")
+                   exit()
+            case 5: self.get_front()
+            case 6:self.length()
+            case 7:self.get_rear()
+            case _: 
+                print(" Wrong choice!!! TRY AGAIN ....")
+                self.menu()
+
+
+    def isEmpty(self):
+        x=False
+        if self.front is None:
+         x=True
+        return x
+    
+
+    def enqueue(self): # insert at last
+        data=int(input(" Enter value to be inserted:"))
+        newnode=Node(data)
+        SimpleQueue.c+=1
+        if self.front is None: # if queue was empty , and we will insert its 1st element
+            self.front=newnode
+            self.rear = newnode
+        else: # Add at the rear
+            self.rear.next=newnode
+            self.rear=newnode
+        self.menu()
+
+    def dequeue(self): # delete from start
+        if self.isEmpty():
+            print("Queue empty. Can't delete")
+        else:
+            print("deleted element->",self.front.data)
+            self.front=self.front.next # just move front pointer in forward
+            if self.front is None: # if only 1 element as there and thats also deleted, so we need to fix rear also in this scenario
+                self.rear=None
+            SimpleQueue.c-=1
+        self.menu()
+
+
+
+    def get_front(self):
+        if self.isEmpty():
+            print("Queue empty")
+        else:
+            print("FRONT->",self.front.data)
+        self.menu()
+
+
+
+    def get_rear(self):
+        if self.isEmpty():
+            print("Queue empty")
+        else:
+             print("REAR->",self.rear.data)
+        self.menu()
+
+
+
+    def display(self):
+        if self.isEmpty():
+            print("Queue empty")
+        else:
+            if SimpleQueue.c==1: # if only 1 element was there, rear and front both were pointing to that element
+                print(self.front.data)
+            else: # if more than 1 element present in queue, 
+             curr=self.front
+             while curr!=None:
+              print(curr.data)
+              curr=curr.next
+        self.menu()
+
+        
+    def length(self):
+        print("length of Queue = ",SimpleQueue.c)
+        self.menu()
+
+
+
+Q1=SimpleQueue()
+print(Q1)
