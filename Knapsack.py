@@ -102,7 +102,10 @@ def knapsack(n,values,weights,W):
         for j in range(1,W+1):
             take=0
             if weights[i-1]<=j:
-                take=values[i-1]+dp[i][j-weights[i-1]]
+                take=values[i-1]+dp[i][j-weights[i-1]] 
+                # just 1 change, instead of taking best profit from prev (row) we:
+                # took same row multiple items, because each row indicate each item and each item can be reused multiple times,
+                # so we are not using 1 item at a time, 1 item multiple times
             not_take=dp[i-1][j]
             dp[i][j]=max(take,not_take)
     return dp[n][W]
