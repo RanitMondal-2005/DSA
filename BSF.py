@@ -1,0 +1,56 @@
+# BREADTH FIRST SEARCH
+
+# 1st make a Queue
+class Queue:
+    def __init__(self):
+        self.q=[]
+    def enqueue(self,data):
+        self.q.append(data)
+    def dequeue(self):
+        if len(self.q)==0:
+            return -1
+        return self.q.pop(0)
+    def length(self):
+        return len(self.q)
+    
+q=Queue()    
+# 2nd we need an adjacency list
+# lets make a adjacency list for any undirected graph
+n=6 # n be no of nodes
+# here (nodes: 0,1,2,3,4,5)
+e=6 # e is no of edges connecting that node
+edges=[(0,1),(0,3),(0,4),(1,2),(1,5),(2,4),(3,4)]
+# create an empty list for all nodes 
+adj_list=[]
+for i in range(n):
+    adj_list.append([])
+# then traverse through each edge(connecting 2 nodes )
+for edge in edges:
+    # evry node has a start and end point(node)
+    # u-> start and v-> end
+    u=edge[0]
+    v=edge[1]
+    # as it is undirected graph connect from both sides
+    adj_list[u].append(v)
+    adj_list[v].append(u)
+for i in range(n):
+    print(i,"->",adj_list[i])
+
+# 3rd we need a visited array/set
+visited=[False]*n # initially visited will have all cells as false,
+# 4th we need an ans to store the BFS traversal order
+ans=[]
+# initially , put starting node in Queue, and mark as visited
+q.enqueue(0) # nodes we have- 0,1,2,3,4,5 and 0 is starting node (let)
+visited[0]=True
+ans.append(0)
+while q.length()>0:
+    front=q.dequeue()
+    # take the neighbors of front from adj list
+    for i in adj_list[front]:
+        # check if that node is previously visited or not
+        if not visited[i]:
+         q.enqueue(i)
+         visited[i]=True
+         ans.append(i)
+print(ans)
